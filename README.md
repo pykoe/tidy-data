@@ -41,6 +41,21 @@ In this repo, you will find the script "run_analysis.R". This script aims to pre
 The CodeBook describes the variables, the data, and any transformations or work that I've performed to clean up the data.
 
 ## Information about my enviroment
-```{r}
-version
+```R
+> version
+
+platform       x86_64-pc-linux-gnu         
+arch           x86_64                      
+os             linux-gnu                   
+system         x86_64, linux-gnu           
+status                                     
+major          3                           
+minor          1.2                         
+year           2014                        
+month          10                          
+day            31                          
+svn rev        66913                       
+language       R                           
+version.string R version 3.1.2 (2014-10-31)
+nickname       Pumpkin Helmet 
 ```
