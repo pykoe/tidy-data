@@ -139,4 +139,7 @@ we will only keep variable with "mean" or "std" in their name. We also reformat 
 
 We can now filter the merge dataset according to this table
 
-The resulting table has 10299 observation and 
+The resulting table has 10299 observation 
+
+For the activity, we just merge the content of the file activity_labels.txt with the filter table ( merge by "y" and activity_label)
+
