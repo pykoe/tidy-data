@@ -67,19 +67,31 @@ meanStdFetureIndex <- meanStdFeture[,1]
 meanStdFetureName <- meanStdFeture[,2]
 
 # select column from X_merge according to mean and std list
-mergedDataset_filtered <- mergedDataset[,c(meanStdFetureIndex, "y", "subject" )]
+mergedDataset_filtered <- mergedDataset[,c(meanStdFetureIndex, 562, 563 )]
 
-names(mergedDataset_filtered) <- meanStdFetureName
+names(mergedDataset_filtered) <- c(meanStdFetureName, "y", "subject")
 
 # 3. Uses descriptive activity names to name the activities in the data set
 activity_label <- read.table("data/UCI HAR Dataset/activity_labels.txt", header = F, strip.white=TRUE)
 colnames(activity_label) <- c("activity_id", "activity_label")
 
 #merge(y_merge, activity_label, by.x = "y" , by.y = "activity_id")
-merge(mergedDataset_filtered, activity_label, by.x = "y" , by.y = "activity_id", all.x=TRUE, sort=FALSE)
+mergedDataset_filtered <- merge(mergedDataset_filtered, activity_label, by.x = "y" , by.y = "activity_id", all.x=TRUE, sort=FALSE)
 
 # 4. Appropriately labels the data set with descriptive variable names.
+# this part as already been done
+# meanStdFeture <- mutate(meanStdFeture, V2=gsub("-m", ".M", V2))
+# meanStdFeture <- mutate(meanStdFeture, V2=gsub("-s", ".S", V2))
+# meanStdFeture <- mutate(meanStdFeture, V2=gsub("-", ".", V2))
+# meanStdFeture <- mutate(meanStdFeture, V2=gsub("\\(\\)", "", V2))
 
 # 5. From the data set in step 4, creates a second, independent tidy data set with the average of each 
 # variable for each activity and each subject.
+library(dplyr)
+tidyData <- tbl_df(mergedDataset_filtered)
 
+#ddply(tidyData, .(subject,y), summarize, foo = mean(fBodyAccMag.Std))
+
+tidyMean <- tidyData %>% group_by(subject, y) %>% summarise_each(funs(ul = mean(.)))
+
+write.csv(tidyMean, file = "data/tidyMean.txt",row.names = FALSE)
